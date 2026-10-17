@@ -219,6 +219,17 @@ render();
 </script>
     <a href="https://siyammiya0006-glitch.github.io/rafshan-shope/" target="_blank">
   Click Now
-    </a>
+    </a><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+  const SUPABASE_URL = 'https://wzctckfpnykqtplrdtda.supabase.co';
+
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_6xPy4KfobXkrklQ89ZYhwQ_oA2A-JSS';
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  console.log('Supabase client initialized successfully!');
+</script>
 </body>
 </html>

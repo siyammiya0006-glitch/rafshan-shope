@@ -80,7 +80,16 @@ async function loadProducts(){
  const el=document.getElementById('products');
  el.innerHTML='<div class="empty">Supabase থেকে পণ্য লোড হচ্ছে…</div>';
  const {data,error}=await supabaseClient.from('products').select('id,name,price,description,image_url,created_at').order('created_at',{ascending:false});
- if(error){console.error('Supabase products load error:',error);el.innerHTML='<div class="empty">পণ্য লোড করা যায়নি। Supabase RLS policy এবং table permissions পরীক্ষা করো।</div>';return}
+ if(error){
+  console.error('Supabase products load error:',error);
+  const box=document.createElement('div');
+  box.className='empty';
+  const title=document.createElement('h3'); title.textContent='পণ্য লোড করা যায়নি!';
+  const message=document.createElement('p'); message.textContent='সমস্যা: '+(error.message||'অজানা সমস্যা');
+  const code=document.createElement('p'); code.textContent='কোড: '+(error.code||'Unknown');
+  const retry=document.createElement('button'); retry.className='btn'; retry.textContent='আবার চেষ্টা করো'; retry.onclick=loadProducts;
+  box.append(title,message,code,retry); el.replaceChildren(box); return;
+ }
  products=(data||[]).map(p=>({...p,desc:p.description||'',image:productImage(p),price:Number(p.price)||0}));
  render();
  if(adminLoggedIn)renderAdminProducts();
